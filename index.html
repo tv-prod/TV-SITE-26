@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="TV Production - סרטוני שיווק ומסחריים לעסקים שרוצים לגדול">
-  <title>TV Production</title>
-  <meta property="og:title" content="TV Production">
-  <meta property="og:description" content="סרטוני שיווק ומסחריים לעסקים שרוצים לגדול. 200+ לקוחות, דירוג 4.9★, 6 שנות ניסיון.">
-  <meta property="og:image" content="https://tvprod.vercel.app/assets/action1.jpg">
-  <meta property="og:url" content="https://tvprod.vercel.app">
+  <meta name="description" content="TV Production — בית הפקה לסרטוני תדמית ושיווק לעסקים בישראל. צוות מקצועי, מטרה ברורה, תוצאות אמיתיות. פגישת ייעוץ ראשונה חינם.">
+  <title>הפקת סרטוני תדמית לעסקים | TV Production</title>
+  <link rel="canonical" href="https://www.tvprod.co.il/">
+  <meta property="og:title" content="הפקת סרטוני תדמית לעסקים | TV Production">
+  <meta property="og:description" content="בית הפקה שיוצר סרטונים שיווקיים לעסקים בישראל. מטרה ברורה, תוצאות אמיתיות.">
+  <meta property="og:image" content="https://www.tvprod.co.il/assets/og-image.jpg">
+  <meta property="og:url" content="https://www.tvprod.co.il/">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://tvprod.vercel.app/assets/action1.jpg">
@@ -5835,13 +5836,21 @@
   }
 
   // Excluded: logo-new-01 (blank), logo-new-04 (solid bg diamond), logo-new-12 (solid bg circle)
+  const logoAltMap = {
+    'client-01': 'לוגו רימונים',
+    'client-02': 'לוגו CBC',
+    'client-03': 'לוגו פיצה זוטה'
+    // ניתן להוסיף כאן את שאר השמות לפי שם הקובץ
+  };
   const allLogos = [
-    ...[1,2,3,4,5,6,7,8,9,10,11].map(n =>
-      `<div class="mq-logo"><img src="assets/logo-client-${String(n).padStart(2,'0')}.png" alt="לקוח"></div>`
-    ),
-    ...[2,3,5,6,7,8,9,10,11,13].map(n =>
-      `<div class="mq-logo"><img src="assets/logo-new-${String(n).padStart(2,'0')}.png" alt="לקוח"></div>`
-    )
+    ...[1,2,3,4,5,6,7,8,9,10,11].map(n => {
+      const key = 'client-' + String(n).padStart(2,'0');
+      return `<div class="mq-logo"><img src="assets/logo-${key}.png" alt="${logoAltMap[key] || 'לוגו חברה'}"></div>`;
+    }),
+    ...[2,3,5,6,7,8,9,10,11,13].map(n => {
+      const key = 'new-' + String(n).padStart(2,'0');
+      return `<div class="mq-logo"><img src="assets/logo-${key}.png" alt="${logoAltMap[key] || 'לוגו חברה'}"></div>`;
+    })
   ];
   const half = Math.ceil(allLogos.length / 2);
   const row1HTML = allLogos.slice(0, half).join('');
@@ -6245,20 +6254,37 @@
     obs.observe(visual);
   })();
 
-  // DISCOUNT POPUP — 50-second timer, once per session
+  // DISCOUNT POPUP — 30-second timer or 50% scroll, once per session
   (function () {
     var overlay    = document.getElementById('disc-overlay');
     var closeBtn   = document.getElementById('discClose');
     var dismissBtn = document.getElementById('discDismiss');
     if (!overlay) return;
+    
+    if (sessionStorage.getItem('tvp_disc_shown')) return;
+    var triggered = false;
+
     function showPopup() {
+      if (triggered) return;
+      triggered = true;
+      sessionStorage.setItem('tvp_disc_shown', '1');
       overlay.classList.add('open');
+      window.removeEventListener('scroll', scrollCheck);
     }
     function hidePopup() { overlay.classList.remove('open'); }
     if (closeBtn)   closeBtn.addEventListener('click', hidePopup);
     if (dismissBtn) dismissBtn.addEventListener('click', hidePopup);
     overlay.addEventListener('click', function (e) { if (e.target === overlay) hidePopup(); });
-    setTimeout(showPopup, 50000);
+    
+    setTimeout(showPopup, 30000);
+
+    function scrollCheck() {
+      var scrollPercent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+      if (scrollPercent >= 50) {
+        showPopup();
+      }
+    }
+    window.addEventListener('scroll', scrollCheck, { passive: true });
   })();
 
   // ABOUT VIDEO — autoplay muted; overlay click → seek 0, unmute, play
@@ -6859,5 +6885,58 @@ document.addEventListener('DOMContentLoaded', function() {
   nav#navbar { letter-spacing: 2.3px !important; }
   nav#navbar .nav-sub-toggle { line-height: 1.6 !important; letter-spacing: 2.4px !important; gap: 11px !important; }
 </style>
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "LocalBusiness",
+"name": "TV Production",
+"description": "בית הפקה לסרטוני תדמית ושיווק לעסקים בישראל",
+"url": "https://www.tvprod.co.il",
+"telephone": "+972533012123",
+"email": "contact@tvprod.co.il",
+"address": {
+"@type": "PostalAddress",
+"addressLocality": "נתניה",
+"addressCountry": "IL"
+},
+"sameAs": [
+"https://www.instagram.com/tv_prod/",
+"https://www.facebook.com/TVproductn",
+"https://www.linkedin.com/company/t-v"
+]
+}
+</script>
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "FAQPage",
+"mainEntity": [
+{
+"@type": "Question",
+"name": "כמה זמן לוקח יום הצילום?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "לרוב הצילומים נמשכים בין 3-4 שעות."
+}
+},
+{
+"@type": "Question",
+"name": "מה הן החבילות באתר?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "החבילות מספקות ללקוח את סוג וכמות הסרטונים במחיר המשתלם ביותר, תוך פגיעה מדויקת במטרות הלקוח."
+}
+},
+{
+"@type": "Question",
+"name": "איך אפשר לשלם?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "ניתן לשלם באמצעות העברה בנקאית וסליקת אשראי."
+}
+}
+]
+}
+</script>
 </body>
 </html>
