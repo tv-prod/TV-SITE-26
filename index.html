@@ -5871,7 +5871,6 @@ src="https://www.facebook.com/tr?id=858925123128698&ev=PageView&noscript=1"/>
 
   // JS-driven infinite scroll — cached halfW to avoid per-frame layout reflow
   function startMarqueeJS(strip, pxPerSec, reverse) {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var pos = 0, lastTs = null, halfW = 0;
     var numPerCopy = strip.children.length / 4;
 
