@@ -3,12 +3,14 @@
 <head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-1PGYDWZM7C"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18159733489"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
   gtag('config', 'G-1PGYDWZM7C');
+  gtag('config', 'AW-18159733489');
 </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1709,6 +1711,13 @@ src="https://www.facebook.com/tr?id=858925123128698&ev=PageView&noscript=1"/>
         submitBtn.textContent = '✅ נשלח בהצלחה!';
         submitBtn.style.background = '#00ff88';
         submitBtn.style.color = '#001a10';
+
+        // דיווח לגוגל על המרה
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            'send_to': 'AW-18159733489/W70MCOXgp-gcEPGVntND'
+          });
+        }
 
         form.reset();
         setTimeout(function () {
